@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Note from './Note';
-import { Form, FormGroup, Label, Input, Button, Col, CardColumns, Card, CardImg } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button, Col, Badge } from 'reactstrap';
 import { v4 } from 'uuid';
-import COLORS from '../shared/colors';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import IMAGES from '../shared/images';
 
 function NoteForm({ addNote, handleChange, currentNote }) {
@@ -12,47 +12,80 @@ function NoteForm({ addNote, handleChange, currentNote }) {
                 <Label for="title-input">Title</Label>
                 <Input type="text" name="title" id="title-input" placeholder="Buy Groceries ⏳" value={currentNote.title} onChange={handleChange} />
             </FormGroup>
-            <FormGroup>
-                <Label for="color-input">Select Color</Label>
-                <Input type="select" name="color" id="color-input" onChange={handleChange}>
-                    <option value="0" className="bg-primary text-white">blue</option>
-                    <option value="1" className="bg-secondary text-white">gray</option>
-                    <option value="2" className="bg-success text-white">green</option>
-                    <option value="3" className="bg-danger text-white">red</option>
-                    <option value="4" className="bg-warning text-white">yellow</option>
-                    <option value="5" className="bg-info text-white">info</option>
-                    <option value="7" className="bg-dark text-white">dark</option>
-                </Input>
-            </FormGroup>
-            <FormGroup check inline>
-                <Label check>
-                    <Input type="radio" name="image" value={0} onChange={handleChange} />
-                    <img style={{ height: "50px", width: "50px" }} src={IMAGES[0]} />
-                </Label>
-            </FormGroup>
-            <FormGroup check inline>
-                <Label check>
-                    <Input type="radio" name="image" value={1} onChange={handleChange} />
-                    <img style={{ height: "50px", width: "50px" }} src={IMAGES[1]} />
-                </Label>
-            </FormGroup>
-            <FormGroup check inline>
-                <Label check>
-                    <Input type="radio" name="image" value={2} onChange={handleChange} />
-                    <img style={{ height: "50px", width: "50px" }} src={IMAGES[2]} />
-                </Label>
-            </FormGroup>
-            <FormGroup check inline>
-                <Label check>
-                    <Input type="radio" name="image" value={3} onChange={handleChange} />
-                    <img style={{ height: "50px", width: "50px" }} src={IMAGES[3]} />
-                </Label>
-            </FormGroup>
+            <fieldset>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="color" value={0} onChange={handleChange} />
+                        <Badge className="text-primary" color="primary">hel</Badge>
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="color" value={1} onChange={handleChange} />
+                        <Badge className="text-secondary" color="secondary">hel</Badge>
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="color" value={2} onChange={handleChange} />
+                        <Badge className="text-success" color="success">hel</Badge>
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="color" value={3} onChange={handleChange} />
+                        <Badge className="text-danger" color="danger">hel</Badge>
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="color" value={4} onChange={handleChange} />
+                        <Badge className="text-warning" color="warning">hel</Badge>
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="color" value={5} onChange={handleChange} />
+                        <Badge className="text-info" color="info">hel</Badge>
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="color" value={7} onChange={handleChange} />
+                        <Badge className="text-dark" color="dark">hel</Badge>
+                    </Label>
+                </FormGroup>
+            </fieldset>
+            <hr className="m-3" />
+            <fieldset>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="image" value={0} onChange={handleChange} />
+                        <img style={{ height: "50px", width: "50px" }} src={IMAGES[0]} />
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="image" value={1} onChange={handleChange} />
+                        <img style={{ height: "50px", width: "50px" }} src={IMAGES[1]} />
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="image" value={2} onChange={handleChange} />
+                        <img style={{ height: "50px", width: "50px" }} src={IMAGES[2]} />
+                    </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                    <Label check>
+                        <Input type="radio" name="image" value={3} onChange={handleChange} />
+                        <img style={{ height: "50px", width: "50px" }} src={IMAGES[3]} />
+                    </Label>
+                </FormGroup>
+            </fieldset>
             <FormGroup>
                 <Label for="content-input">Note</Label>
-                <Input type="textarea" rows="5" name="content" id="content-input" placeholder="
-                        5- 3 Eggs
-                        6- 1L Milk" value={currentNote.content} onChange={handleChange} />
+                <Input type="textarea" rows="5" name="content" id="content-input" value={currentNote.content} onChange={handleChange} />
             </FormGroup>
             <FormGroup>
                 <Col xs={{ size: 2, offset: 5 }}>
@@ -65,10 +98,10 @@ function NoteForm({ addNote, handleChange, currentNote }) {
 
 function Notes() {
     const [notes, setNotes] = useState([
-        { id: v4(), title: "first note", content: "this is a note", color: 1, image: 2 }
+        { id: v4(), title: "first note", content: "this is a note", color: 6, image: 0 }
     ]);
 
-    const [currentNote, setCurrentNote] = useState({});
+    const [currentNote, setCurrentNote] = useState({ title: "(Empty note)", content: "(Empty)", color: 0, image: 0 });
 
     const addNote = () => {
         const note = { id: v4(), title: currentNote.title, content: currentNote.content, color: currentNote.color, image: currentNote.image };
@@ -76,7 +109,7 @@ function Notes() {
     };
 
     const handleChange = e => {
-        if (e.target.name === "color") setCurrentNote({ ...currentNote, color: parseInt(e.target.value) });
+        if (e.target.name === "color") setCurrentNote({ ...currentNote, color: e.target.value });
         else if (e.target.name === "image") setCurrentNote({ ...currentNote, image: e.target.value });
         else setCurrentNote({ ...currentNote, [e.target.name]: e.target.value });
     };
@@ -85,9 +118,11 @@ function Notes() {
         <>
             <div className="row">
                 <div className="col-12">
-                    <CardColumns>
-                        {notes.map(note => <Note key={note.id} note={note} addNote={addNote} />)}
-                    </CardColumns>
+                    <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
+                        <Masonry>
+                            {notes.map(note => <Note key={note.id} note={note} addNote={addNote} />)}
+                        </Masonry>
+                    </ResponsiveMasonry>
                 </div>
             </div>
             <div className="row">

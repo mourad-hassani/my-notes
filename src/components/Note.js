@@ -5,10 +5,10 @@ import IMAGES from '../shared/images';
 
 function Note({ note, addNote }) {
     return (
-        <Card style={{ width: "25vw" }} className="text-center mb-5 text-white">
+        <Card className="text-center m-3 text-white">
             <CardHeader className={`bg-${COLORS[note.color]}`}></CardHeader>
             <CardImg src={IMAGES[note.image]} />
-            <CardImgOverlay className="mt-3">
+            <CardImgOverlay className={`p-5 text-${COLORS[note.color]}`}>
                 <CardTitle className="h4"> {note.title} </CardTitle>
                 <CardText className="h5"> {note.content} </CardText>
             </CardImgOverlay>
