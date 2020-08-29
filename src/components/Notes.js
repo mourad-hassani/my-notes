@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Note from './Note';
+import NoteEditor from './NoteEditor';
 import { Form, FormGroup, Label, Input, Button, Col, Badge } from 'reactstrap';
 import { v4 } from 'uuid';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
@@ -98,36 +99,38 @@ function NoteForm({ addNote, handleChange, currentNote }) {
 
 function Notes() {
     const [notes, setNotes] = useState([
-        { id: v4(), title: "first note", content: "this is a note", color: 6, image: 0 }
+        { id: v4(), title: "first note", content: "this is a note", color: 0, image: 0 }
     ]);
 
-    const [currentNote, setCurrentNote] = useState({ title: "(Empty note)", content: "(Empty)", color: 0, image: 0 });
 
     const addNote = () => {
-        const note = { id: v4(), title: currentNote.title, content: currentNote.content, color: currentNote.color, image: currentNote.image };
+        const note = { id: v4(), title: "(Empty Title)", content: "(Empty Note)", color: 0, image: 0 };
         setNotes([...notes, note]);
     };
 
-    const handleChange = e => {
-        if (e.target.name === "color") setCurrentNote({ ...currentNote, color: e.target.value });
-        else if (e.target.name === "image") setCurrentNote({ ...currentNote, image: e.target.value });
-        else setCurrentNote({ ...currentNote, [e.target.name]: e.target.value });
+    const handleChange = (index, name, text) => {
+        const newNotes = notes;
+        if (name === "title") {
+            newNotes[index].title = text;
+            setNotes(newNotes);
+        } else if (name === "content") {
+            newNotes[index].content = text;
+            setNotes(newNotes);
+        }
     };
 
     return (
         <>
             <div className="row">
                 <div className="col-12">
-                    <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
-                        <Masonry>
-                            {notes.map(note => <Note key={note.id} note={note} addNote={addNote} />)}
-                        </Masonry>
-                    </ResponsiveMasonry>
+                    <Masonry>
+                        {notes.map((note, index) => <NoteEditor key={note.id} note={note} index={index} handleChange={handleChange} setNotes={setNotes} notes={notes} />)}
+                    </Masonry>
                 </div>
             </div>
             <div className="row">
-                <div className="col-8 offset-2">
-                    <NoteForm addNote={addNote} handleChange={handleChange} currentNote={currentNote} />
+                <div className="col-12">
+                    <button onClick={addNote} className="btn btn-success rounded">new</button>
                 </div>
             </div>
         </>

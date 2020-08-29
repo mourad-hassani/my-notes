@@ -1,0 +1,8 @@
+.note-editor {
+  border-radius: 10px;
+  border: solid rgb(255, 169, 71) thin;
+}
+
+.title-editor {
+  width: 50%;
+}

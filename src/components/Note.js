@@ -5,14 +5,11 @@ import IMAGES from '../shared/images';
 
 function Note({ note, addNote }) {
     return (
-        <Card className="text-center m-3 text-white">
-            <CardHeader className={`bg-${COLORS[note.color]}`}></CardHeader>
-            <CardImg src={IMAGES[note.image]} />
-            <CardImgOverlay className={`p-5 text-${COLORS[note.color]}`}>
-                <CardTitle className="h4"> {note.title} </CardTitle>
-                <CardText className="h5"> {note.content} </CardText>
-            </CardImgOverlay>
-        </Card>
+        <div className={`card p-3 m-2 text-center text-${COLORS[note.color]}`} style={{ backgroundImage: `url(${IMAGES[note.image]})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
+            <h2> {note.title} </h2>
+            <hr className={`m-3 bg-${COLORS[note.color]}`} />
+            <h5> {note.content} </h5>
+        </div>
     );
 }
 
